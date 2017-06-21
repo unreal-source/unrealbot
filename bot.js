@@ -1,11 +1,10 @@
 'use strict'
 
-// Import dependencies
-const Discord = require('discord.js')
 const cli = require('commander')
+const { CommandoClient } = require('discord.js-commando')
 const log = require('lloogg')
-const glob = require('glob')
 const fs = require('fs')
+const path = require('path')
 
 // Check arguments for token and owner ID
 cli
@@ -14,49 +13,34 @@ cli
   .option('-o, --owner <id>', 'Add owner ID')
   .parse(process.argv)
 
-// Do not proceed without a token
-if (!cli.token) {
-  log.error('Bot token required. Run:', 'node bot.js -t bot_token_here')
+// Stop if token & owner ID are not provided
+if (!cli.token || !cli.owner) {
+  log.error('Bot token and owner ID are required')
   process.exit(1)
 }
 
-// Load bot config
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'))
-
-// Create a Discord client instance
-const client = new Discord.Client()
-
-// Listen for messages
-client.on('message', message => {
-  // Do not proceed if this bot sent the message
-  if (message.author.bot) return
-
-  // Do not proceed without command prefix
-  if (!message.content.startsWith(config.prefix)) return
-
-  // Parse command
-  let command = message.content.split(' ')[0].slice(config.prefix.length)
-
-  // Parse arguments
-  let args = message.content.split(' ').slice(1)
-
-  // Find command
-  glob(`commands/**/${command}.js`, (err, files) => {
-    // Handle errors
-    if (err) return log.error(err)
-
-    // Load command
-    let command = require(`./${files[0]}`)
-
-    // Run command
-    command.run(client, message, args)
-  })
+// Set up the client
+const client = new CommandoClient({
+  commandPrefix: '!',
+  owner: cli.owner,
+  disableEveryone: true,
+  unknownCommandResponse: false
 })
 
-// Log when the bot is ready to receive information from Discord
-client.on('ready', () => {
-  log.success('Bot is ready!')
-})
+// Register commands
+client.registry
+  .registerDefaultTypes()
+  .registerDefaultGroups()
+  .registerGroups([
+    ['fun', 'Entertainment and inspiration'],
+    ['admin', 'Admin/moderation tools']
+  ])
+  .registerDefaultCommands()
+  .registerCommandsIn(path.join(__dirname, 'commands'))
 
-// Log in to Discord
 client.login(cli.token)
+
+client.on('ready', () => {
+  log.info('Logged in!')
+  client.user.setGame('Discord')
+})
