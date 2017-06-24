@@ -25,7 +25,7 @@ module.exports = class SilenceCommand extends Command {
             if (duration.match(/^(5|15|30)m$|^1h$/)) {
               return true
             } else {
-              return 'I can only silence users for 5m, 15m, 30m or 1h.'
+              return 'Invalid duration. Please use 5m, 15m, 30m or 1h.'
             }
           }
         }
@@ -39,12 +39,12 @@ module.exports = class SilenceCommand extends Command {
 
   run(message, args) {
     const { member, duration } = args
-    const role = message.guild.roles.find('name', 'Silenced')
+    const role = message.guild.roles.find('name', 'Member')
 
-    if (!member.roles.has(role)) {
-      member.addRole(role).catch(console.error)
+    if (member.roles.has(role.id)) {
+      member.removeRole(role).catch(console.error)
       setTimeout(() => {
-        member.removeRole(role).catch(console.error)
+        member.addRole(role).catch(console.error)
       }, ms(duration))
     } else {
       return message.say(`${member} is already silenced.`)
