@@ -48,3 +48,10 @@ client.on('ready', () => {
   log.info('Logged in!')
   client.user.setGame('Discord')
 })
+
+// Announce when new members join the guild
+client.on('guildMemberAdd', (guild, member) => {
+  let channel = guild.channels.find('name', 'general')
+
+  channel.sendMessage(`Please welcome ${member} to the community! :beers:`)
+})
