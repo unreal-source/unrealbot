@@ -13,8 +13,12 @@ cli
   .option('-o, --owner <id>', 'Add owner ID')
   .parse(process.argv)
 
+// If no CLI arguments are provided, check for environment variables
+const token = cli.token ? cli.token : process.env.token
+const owner = cli.owner ? cli.owner : process.env.id
+
 // Stop if token & owner ID are not provided
-if (!cli.token || !cli.owner) {
+if (!token || !owner) {
   log.error('Bot token and owner ID are required')
   process.exit(1)
 }
@@ -22,7 +26,7 @@ if (!cli.token || !cli.owner) {
 // Set up the client
 const client = new CommandoClient({
   commandPrefix: '!',
-  owner: cli.owner,
+  owner: owner,
   disableEveryone: true,
   unknownCommandResponse: false
 })
@@ -38,7 +42,7 @@ client.registry
   .registerDefaultCommands()
   .registerCommandsIn(path.join(__dirname, 'commands'))
 
-client.login(cli.token)
+client.login(token)
 
 client.on('ready', () => {
   log.info('Logged in!')
