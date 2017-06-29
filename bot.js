@@ -53,5 +53,7 @@ client.on('ready', () => {
 client.on('guildMemberAdd', (guild, member) => {
   let channel = guild.channels.find('name', 'general')
 
+  console.log(channel)
+
   channel.sendMessage(`Please welcome ${member} to the community! :beers:`)
 })
