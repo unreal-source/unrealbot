@@ -50,8 +50,8 @@ client.on('ready', () => {
 })
 
 // Announce when new members join the guild
-client.on('guildMemberAdd', (guild, member) => {
-  let channel = guild.channels.find('name', 'general')
+client.on('guildMemberAdd', member => {
+  let channel = member.guild.channels.find('name', 'general')
 
   console.log(channel)
 
