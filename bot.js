@@ -14,8 +14,8 @@ cli
   .parse(process.argv)
 
 // If no CLI arguments are provided, check for environment variables
-const token = cli.token ? cli.token : process.env.token
-const owner = cli.owner ? cli.owner : process.env.id
+const token = cli.token ? cli.token : process.env.BOT_TOKEN
+const owner = cli.owner ? cli.owner : process.env.OWNER_ID
 
 // Stop if token & owner ID are not provided
 if (!token || !owner) {
