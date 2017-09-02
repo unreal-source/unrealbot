@@ -35,7 +35,8 @@ module.exports = class DiceCommand extends Command {
             return 'That is not a valid dice type. Valid types: d4, d6, d8, d10, d12 and d20.'
           }
         }
-      ]
+      ],
+      argsPromptLimit: 3
     })
   }
 
