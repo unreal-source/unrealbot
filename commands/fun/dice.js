@@ -12,6 +12,10 @@ module.exports = class DiceCommand extends Command {
       memberName: 'dice',
       description: 'Roll the dice.',
       examples: ['roll 1 d20', 'dice 4 d6'],
+      throttling: {
+        usages: 1,
+        duration: 60
+      },
       args: [
         {
           key: 'number',
