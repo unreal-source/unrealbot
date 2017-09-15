@@ -143,7 +143,7 @@ module.exports = class LookingForTalentCommand extends Command {
   }
 
   async run(message, args) {
-    const channel = await this.client.channels.find('name', 'lab')
+    const channel = await this.client.channels.find('name', 'looking-for-talent')
     const { employer, role, type, compensation, location, description, skills, apply } = args
     const embedColor = compensationColor(titleCase(compensation))
     const job = new RichEmbed()
