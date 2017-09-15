@@ -36,8 +36,9 @@ client.registry
   .registerDefaultTypes()
   .registerDefaultGroups()
   .registerGroups([
-    ['fun', 'Entertainment and inspiration'],
-    ['admin', 'Admin/moderation tools']
+    ['fun', 'Fun Commands'],
+    ['admin', 'Admin Commands'],
+    ['jobs', 'Job Board Commands']
   ])
   .registerDefaultCommands()
   .registerCommandsIn(path.join(__dirname, 'commands'))
