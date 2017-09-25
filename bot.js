@@ -62,7 +62,7 @@ client.on('guildMemberAdd', member => {
 // NOTE: Temporarily restore old job post detection until the new features are done
 client.on('message', message => {
   if (message.channel.name === 'jobs') {
-    const prefix = /^\[(paid|unpaid|royalty|contract)\]$/i
+    const prefix = /^\*\*\[(paid|unpaid|royalty|contract)\]\*\*$/i
 
     if (message.content.split(' ')[0].match(prefix)) {
       message.pin()
