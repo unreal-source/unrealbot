@@ -25,7 +25,7 @@ module.exports = class LookingForTalentCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'lft',
-      aliases: ['talent']
+      aliases: ['talent'],
       group: 'jobs',
       memberName: 'lft',
       description:
