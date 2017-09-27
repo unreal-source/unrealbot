@@ -24,13 +24,13 @@ function compensationColor(compensation) {
 module.exports = class LookingForTalentCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'lft',
-      aliases: ['talent'],
+      name: 'talent',
+      aliases: ['lft'],
       group: 'jobs',
-      memberName: 'lft',
+      memberName: 'talent',
       description:
         'Post a job opportunity to the #looking-for-talent channel.',
-      examples: ['lft'],
+      examples: ['talent'],
       args: [
         // Employer Name
         {
