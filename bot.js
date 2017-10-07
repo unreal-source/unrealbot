@@ -50,15 +50,6 @@ client.on('ready', () => {
   client.user.setGame('Discord')
 })
 
-// Announce when new members join the guild
-client.on('guildMemberAdd', member => {
-  let channel = member.guild.channels.find('name', 'general')
-
-  console.log(channel)
-
-  channel.sendMessage(`Please welcome ${member} to the community! :beers:`)
-})
-
 // NOTE: Temporarily restore old job post detection until the new features are done
 client.on('message', message => {
   if (message.channel.name === 'jobs') {
