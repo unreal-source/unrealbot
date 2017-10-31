@@ -74,7 +74,7 @@ module.exports = class LookingForWorkCommand extends Command {
   }
 
   async run(message, args) {
-    const channel = await this.client.channels.find('name', 'jobs')
+    const channel = await this.client.channels.find('name', 'looking-for-work')
     const { name, location, description, portfolio, contact } = args
     const post = new RichEmbed()
       .setTitle(name)
