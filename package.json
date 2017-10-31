@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "main": "bot.js",
   "engines": {
-    "node": ">=7.10.0"
+    "node": "8.9.x"
   },
   "dependencies": {
     "commander": "^2.11.0",
