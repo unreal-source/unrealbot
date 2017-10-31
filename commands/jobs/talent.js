@@ -12,7 +12,7 @@ function getEmbedColor(name) {
     'Unpaid': '#ffa94d'
   }
 
-  console.log(`Compensation: ${compensation}`, `Color: ${colors[compensation]}`)
+  console.log(`Compensation: ${name}`, `Color: ${colors[name]}`)
 
   if (colors[name]) {
     return colors[name]
