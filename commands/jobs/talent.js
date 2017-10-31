@@ -14,8 +14,8 @@ function getEmbedColor(name) {
 
   console.log(`Compensation: ${compensation}`, `Color: ${colors[compensation]}`)
 
-  if (colors[compensation]) {
-    return colors[compensation]
+  if (colors[name]) {
+    return colors[name]
   } else {
     console.error('Invalid compensation. No matching color found.')
   }
