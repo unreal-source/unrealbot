@@ -4,8 +4,8 @@ const { Command } = require('discord.js-commando')
 const { RichEmbed } = require('discord.js')
 const titleCase = require('title-case')
 
-// Return compensation's matching color. Applied to job posts for better at-a-glance readability.
-function compensationColor(compensation) {
+// Set the embed color based on compensation. Applied to job posts for better at-a-glance readability.
+function getEmbedColor(name) {
   let colors = {
     'Paid': '#69db7c',
     'Royalty': '#ffe066',
@@ -28,9 +28,7 @@ module.exports = class LookingForTalentCommand extends Command {
       aliases: ['lft'],
       group: 'jobs',
       memberName: 'talent',
-      description:
-        'Post a job opportunity to the #looking-for-talent channel.',
-      examples: ['talent'],
+      description: 'Write a post in the #looking-for-talent channel.',
       args: [
         // Employer Name
         {
@@ -145,8 +143,8 @@ module.exports = class LookingForTalentCommand extends Command {
   async run(message, args) {
     const channel = await this.client.channels.find('name', 'looking-for-talent')
     const { employer, role, type, compensation, location, description, skills, apply } = args
-    const embedColor = compensationColor(titleCase(compensation))
-    const job = new RichEmbed()
+    const embedColor = getEmbedColor(titleCase(compensation))
+    const post = new RichEmbed()
       .setTitle(`${titleCase(role)} - ${titleCase(employer)}`)
       .setDescription('[]()\n[]()') // Little hack to create a bigger margin below the title
       .setColor(embedColor)
@@ -159,6 +157,6 @@ module.exports = class LookingForTalentCommand extends Command {
       .addField('Skills & Requirements', skills)
       .addField('How to Apply', apply)
 
-    return channel.send(job)
+    return channel.send(post).then(message.say('Your message was successfully posted in the #looking-for-talent channel.'))
   }
 }
