@@ -16,6 +16,11 @@ module.exports = class GameIdeaCommand extends Command {
   }
 
   run(message) {
+    // Only allow this command in DM channels
+    if (message.channel.type !== 'dm') {
+      return message.say('Want game ideas? Send me a DM!')
+    }
+
     const genre = random(game.genre)()
     const verb = random(game.verb)()
     const thing = random(game.thing)()
