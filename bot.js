@@ -2,9 +2,10 @@
 
 const cli = require('commander')
 const { CommandoClient } = require('discord.js-commando')
-const log = require('lloogg')
+const Lloogg = require('lloogg')
 const fs = require('fs')
 const path = require('path')
+const log = new Lloogg()
 
 // Check arguments for token and owner ID
 cli
