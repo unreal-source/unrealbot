@@ -3,6 +3,7 @@
 const { Command } = require('discord.js-commando')
 const { RichEmbed } = require('discord.js')
 const titleCase = require('title-case')
+const getEmbedColor = require('../../lib/get-embed-color')
 
 module.exports = class LookingForWorkCommand extends Command {
   constructor(client) {
@@ -23,6 +24,19 @@ module.exports = class LookingForWorkCommand extends Command {
               return true
             } else {
               return `That was ${response.length} characters. Please try again in 128 characters or less.`
+            }
+          }
+        },
+        // Compensation
+        {
+          key: 'compensation',
+          prompt: '**Are you looking for paid, royalty, or unpaid work? (Choose one: Paid, Royalty, Unpaid)**',
+          type: 'string',
+          validate: response => {
+            if (/^paid$|^royalty$|^unpaid$/i.test(response)) {
+              return true
+            } else {
+              return 'Invalid compensation type. Please choose `Paid`, `Royalty` or `Unpaid`.'
             }
           }
         },
@@ -75,10 +89,12 @@ module.exports = class LookingForWorkCommand extends Command {
 
   async run(message, args) {
     const channel = await this.client.channels.find('name', 'looking-for-work')
-    const { name, location, description, portfolio, contact } = args
+    const { name, compensation, description, portfolio, contact } = args
+    const embedColor = getEmbedColor(titleCase(compensation))
     const post = new RichEmbed()
-      .setTitle(name)
-      .setDescription(description) // Little hack to create a bigger margin below the title
+      .setTitle(`${name} (${titleCase(compensation)})`)
+      .setDescription(description)
+      .setColor(embedColor)
       .setFooter(message.author.username, message.author.avatarURL)
       .setTimestamp()
       .addField('Portfolio', portfolio)
