@@ -130,16 +130,15 @@ module.exports = class LookingForTalentCommand extends Command {
     const embedColor = getEmbedColor(titleCase(compensation))
     const post = new RichEmbed()
       .setTitle(`${titleCase(role)} - ${titleCase(employer)}`)
-      .setDescription('[]()\n[]()') // Little hack to create a bigger margin below the title
+      .setDescription(`Posted by <@${message.author.id}>`)
       .setColor(embedColor)
-      .setFooter(message.author.username, message.author.avatarURL)
       .setTimestamp()
       .addField('Compensation', titleCase(compensation), true)
       .addField('Location', titleCase(location), true)
       .addField('Job Type', titleCase(type), true)
       .addField('Job Description', description)
       .addField('Skills & Requirements', skills)
-      .addField('How to Apply', apply)
+      .addField('How to Apply', `${apply}\n─`)
 
     return channel.send(post).then(message.say('Your message was successfully posted in the #looking-for-talent channel.'))
   }
