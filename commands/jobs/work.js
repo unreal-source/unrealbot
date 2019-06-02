@@ -88,14 +88,13 @@ module.exports = class LookingForWorkCommand extends Command {
   }
 
   async run(message, args) {
-    const guild = await this.client.guilds.first()
-    const member = await guild.fetchMember(message.author)
-    const channel = await this.client.channels.find('name', 'looking-for-work')
+    const user = await this.client.fetchUser(message.author.id)
+    const channel = await this.client.channels.find(channel => channel.name === 'looking-for-work')
     const { name, compensation, description, portfolio, contact } = args
     const embedColor = getEmbedColor(titleCase(compensation))
     const post = new RichEmbed()
       .setTitle(`${name} (${titleCase(compensation)})`)
-      .setDescription(`<@${member.id}>\n\n${description}`)
+      .setDescription(`<@${user.id}>\n\n${description}`)
       .setColor(embedColor)
       .setTimestamp()
       .addField('Portfolio', portfolio)
