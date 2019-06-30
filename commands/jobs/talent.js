@@ -131,7 +131,7 @@ module.exports = class LookingForTalentCommand extends Command {
     const embedColor = getEmbedColor(titleCase(compensation))
     const post = new RichEmbed()
       .setTitle(`${titleCase(role)} - ${titleCase(employer)}`)
-      .setDescription(`Posted by <@${user.id}>`)
+      .setDescription('─')
       .setColor(embedColor)
       .setTimestamp()
       .addField('Compensation', titleCase(compensation), true)
@@ -141,6 +141,6 @@ module.exports = class LookingForTalentCommand extends Command {
       .addField('Skills & Requirements', skills)
       .addField('How to Apply', `${apply}\n─`)
 
-    return channel.send(post).then(message.say('Your message was successfully posted in the #looking-for-talent channel.'))
+    return channel.send(`Posted by <@${user.id}>`, post).then(message.say('Your message was successfully posted in the #looking-for-talent channel.'))
   }
 }

@@ -94,12 +94,12 @@ module.exports = class LookingForWorkCommand extends Command {
     const embedColor = getEmbedColor(titleCase(compensation))
     const post = new RichEmbed()
       .setTitle(`${name} (${titleCase(compensation)})`)
-      .setDescription(`<@${user.id}>\n\n${description}`)
+      .setDescription(description)
       .setColor(embedColor)
       .setTimestamp()
       .addField('Portfolio', portfolio)
       .addField('Contact', `${contact}\n─`)
 
-    return channel.send(post).then(message.say('Your message was successfully posted in the #looking-for-work channel.'))
+    return channel.send(`Posted by <@${user.id}>`, post).then(message.say('Your message was successfully posted in the #looking-for-work channel.'))
   }
 }
