@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "commander": "^2.20.0",
-    "discord.js": "^11.5.0",
+    "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
     "lloogg": "^0.2.0",
-    "ms": "^2.1.1",
+    "ms": "^2.1.2",
     "random-int": "^2.0.0",
     "random-item": "^3.0.0",
     "title-case": "^2.1.1",
